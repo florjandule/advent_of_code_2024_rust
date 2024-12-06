@@ -37,3 +37,41 @@ pub fn extract_two_numbers_from_line(input: &str) -> (u32, u32) {
         .expect("Failed to parse the second number");
     (first, second)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_file_stem() {
+        let path = "src/utils.rs";
+        let stem = file_stem(path);
+        assert_eq!(stem, "utils");
+    }
+
+    #[test]
+    fn test_get_input_path() {
+        let challenge_name = "day1";
+        let input_filename = "input.txt";
+        let path = get_input_path(challenge_name, input_filename);
+
+        assert_eq!(
+            path,
+            std::env::current_dir()
+                .unwrap()
+                .join("inputs")
+                .join("day1")
+                .join("input.txt")
+                .display()
+                .to_string()
+        );
+    }
+
+    #[test]
+    fn test_split_input() {
+        let input = "1   2";
+        let (left, right) = extract_two_numbers_from_line(input);
+        assert_eq!(left, 1);
+        assert_eq!(right, 2);
+    }
+}
