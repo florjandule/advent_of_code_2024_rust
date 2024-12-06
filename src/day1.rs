@@ -69,3 +69,30 @@ fn calculate_distance(left_numbers: &Vec<u32>, right_numbers: &Vec<u32>) -> u32 
     }
     distance
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_split_input() {
+        let input = "1   2";
+        let (left, right) = split_input(input);
+        assert_eq!(left, 1);
+        assert_eq!(right, 2);
+    }
+
+    #[test]
+    fn test_calculate_distance() {
+        let left_numbers = vec![1, 2, 3];
+        let right_numbers = vec![4, 5, 6];
+        let distance = calculate_distance(&left_numbers, &right_numbers);
+        assert_eq!(distance, 9);
+    }
+
+    #[test]
+    fn test_execute_with_input() {
+        let result = execute_with_input( "test_input.txt");
+        assert_eq!(result, 11);
+    }
+}
