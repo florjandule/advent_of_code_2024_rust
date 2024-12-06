@@ -1,7 +1,18 @@
 use crate::utils;
 
 pub fn execute() -> u32 {
-    let input = utils::read_input(get_input_path().as_str()).unwrap();
+    execute_with_input("input.txt")
+}
+
+fn execute_with_input(input_filename: &str) -> u32 {
+    let input = utils::read_input(
+        get_input_path(
+            utils::get_filename_without_extension(file!()).as_str(),
+            input_filename,
+        )
+        .as_str(),
+    )
+    .unwrap();
 
     let lines: Vec<&str> = input.lines().collect();
 
@@ -30,12 +41,12 @@ pub fn execute() -> u32 {
     distance
 }
 
-fn get_input_path() -> String {
+fn get_input_path(challenge_name: &str, input_filename: &str) -> String {
     std::env::current_dir()
         .expect("Failed to get the current directory")
         .join("inputs")
-        .join(utils::get_filename_without_extension(file!()).unwrap())
-        .join("input.txt")
+        .join(challenge_name)
+        .join(input_filename)
         .display()
         .to_string()
 }
