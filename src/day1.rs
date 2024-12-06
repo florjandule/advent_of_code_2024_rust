@@ -6,11 +6,7 @@ pub fn execute() -> u32 {
 
 fn execute_with_input(input_filename: &str) -> u32 {
     let input = utils::read_input(
-        get_input_path(
-            utils::get_filename_without_extension(file!()).as_str(),
-            input_filename,
-        )
-        .as_str(),
+        utils::get_input_path(&utils::file_stem(file!()).as_str(), input_filename).as_str(),
     )
     .unwrap();
 
@@ -26,7 +22,7 @@ fn execute_with_input(input_filename: &str) -> u32 {
     right_numbers.reserve_exact(len);
 
     for line in lines.iter() {
-        let (left, right) = split_input(line);
+        let (left, right) = utils::extract_two_numbers_from_line(line);
         left_numbers.push(left);
         right_numbers.push(right);
     }
@@ -39,27 +35,6 @@ fn execute_with_input(input_filename: &str) -> u32 {
     let distance = calculate_distance(&left_numbers, &right_numbers);
     println!("Result: {}", distance);
     distance
-}
-
-fn get_input_path(challenge_name: &str, input_filename: &str) -> String {
-    std::env::current_dir()
-        .expect("Failed to get the current directory")
-        .join("inputs")
-        .join(challenge_name)
-        .join(input_filename)
-        .display()
-        .to_string()
-}
-
-fn split_input(input: &str) -> (u32, u32) {
-    let split: Vec<&str> = input.split("   ").collect();
-    let first = split[0]
-        .parse::<u32>()
-        .expect("Failed to parse the first number");
-    let second = split[1]
-        .parse::<u32>()
-        .expect("Failed to parse the second number");
-    (first, second)
 }
 
 fn calculate_distance(left_numbers: &Vec<u32>, right_numbers: &Vec<u32>) -> u32 {
@@ -77,7 +52,7 @@ mod tests {
     #[test]
     fn test_split_input() {
         let input = "1   2";
-        let (left, right) = split_input(input);
+        let (left, right) = utils::extract_two_numbers_from_line(input);
         assert_eq!(left, 1);
         assert_eq!(right, 2);
     }
@@ -92,7 +67,7 @@ mod tests {
 
     #[test]
     fn test_execute_with_input() {
-        let result = execute_with_input( "test_input.txt");
+        let result = execute_with_input("test_input.txt");
         assert_eq!(result, 11);
     }
 }
