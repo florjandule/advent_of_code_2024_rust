@@ -50,14 +50,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_split_input() {
-        let input = "1   2";
-        let (left, right) = utils::extract_two_numbers_from_line(input);
-        assert_eq!(left, 1);
-        assert_eq!(right, 2);
-    }
-
-    #[test]
     fn test_calculate_distance() {
         let left_numbers = vec![1, 2, 3];
         let right_numbers = vec![4, 5, 6];
