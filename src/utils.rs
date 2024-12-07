@@ -38,6 +38,16 @@ pub fn extract_two_numbers_from_line(input: &str) -> (u32, u32) {
     (first, second)
 }
 
+#[macro_export]
+macro_rules! input_filepath {
+    () => {
+        crate::utils::get_input_path(&crate::utils::file_stem(file!()).as_str(), "input.txt")
+    };
+    ($input_filename:expr) => {
+        crate::utils::get_input_path(&crate::utils::file_stem(file!()).as_str(), $input_filename)
+    };
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
