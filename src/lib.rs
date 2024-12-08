@@ -4,3 +4,4 @@ pub mod day1p2;
 pub mod day2;
 pub mod day2p2;
 pub mod day3;
+pub mod day3p2;
